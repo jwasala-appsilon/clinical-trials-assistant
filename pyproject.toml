@@ -1,0 +1,36 @@
+[project]
+name = "clinical-trials-assistant"
+version = "0.1.0"
+description = ""
+authors = [
+    {name = "Jakub Wąsala",email = "jakub@randomseed.eu"}
+]
+readme = "README.md"
+requires-python = ">=3.13,<4.0"
+dependencies = [
+    "langchain[openai] (>=0.3.26,<0.4.0)",
+    "langsmith (>=0.4.8,<0.5.0)",
+    "langgraph (>=0.5.3,<0.6.0)",
+    "langgraph-supervisor (>=0.0.27,<0.0.28)",
+    "streamlit (>=1.47.0,<2.0.0)"
+]
+
+
+[build-system]
+requires = ["poetry-core>=2.0.0,<3.0.0"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.group.dev.dependencies]
+ruff = "^0.12.4"
+pytest = "^8.4.1"
+
+[tool.ruff.lint]
+select = ["I"]
+
+[tool.pytest.ini_options]
+pythonpath = [
+  "."
+]
+
+[tool.poetry.requires-plugins]
+poetry-dotenv-plugin = ">=0.2"
