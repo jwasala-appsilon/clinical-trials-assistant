@@ -7,7 +7,7 @@ dry_lint:
 		poetry run ruff format --check
 
 run:
-	poetry run streamlit run clinical_trials_assistant/main.py
+	poetry run chainlit run clinical_trials_assistant/main.py
 
 test:
 	poetry run pytest

@@ -141,7 +141,7 @@ We follow **Conventional Commits** specification with **gitmojis** encouraged! �
 🐛 fix(nodes): resolve state management issue in graph
 📚 docs: update installation instructions
 🧪 test(providers): add integration tests for API calls
-♻️ refactor(main): improve streamlit component structure
+♻️ refactor(main): improve chainlit component structure
 
 # Bad commits
 fix bug
