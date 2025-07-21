@@ -3,7 +3,7 @@ name = "clinical-trials-assistant"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Jakub Wąsala",email = "jakub@randomseed.eu"}
+    {name = "Jakub Wąsala",email = "jakub.wasala@appsilon.com"}
 ]
 readme = "README.md"
 requires-python = ">=3.13,<4.0"

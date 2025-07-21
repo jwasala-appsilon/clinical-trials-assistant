@@ -252,7 +252,7 @@ We welcome feature requests! Please:
 
 - **GitHub Discussions**: For general questions and discussions
 - **GitHub Issues**: For bug reports and feature requests
-- **Email**: Contact [jakub@randomseed.eu](mailto:jakub@randomseed.eu) for private matters
+- **Email**: Contact [jakub.wasala@appsilon.com](mailto:jakub.wasala@appsilon.com) for private matters
 
 ### Community Guidelines
 
