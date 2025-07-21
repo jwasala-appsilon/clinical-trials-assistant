@@ -12,13 +12,15 @@ async def on_chat_start():
 @cl.on_message
 async def on_message(message: cl.Message):
     messages = cl.user_session.get("messages") or []
+    retrieved_trials = cl.user_session.get("retrieved_trials") or None
+    top_reranked_results_ids = cl.user_session.get("top_reranked_results_ids") or None
     messages.append(HumanMessage(message.content))
 
     state = State(
         messages=messages,
         is_valid_request=None,
-        retrieved_trials=None,
-        top_reranked_results_ids=None,
+        retrieved_trials=retrieved_trials,
+        top_reranked_results_ids=top_reranked_results_ids,
     )
 
     msg = cl.Message(content="", author="ai")
@@ -44,6 +46,13 @@ async def on_message(message: cl.Message):
     messages.append(AIMessage(content))
 
     cl.user_session.set("messages", messages)
+    cl.user_session.set(
+        "retrieved_trials", data.get("answer", {}).get("retrieved_trials")
+    )
+    cl.user_session.set(
+        "top_reranked_results_ids",
+        data.get("answer", {}).get("top_reranked_results_ids"),
+    )
 
 
 import chainlit as cl
@@ -59,5 +68,5 @@ async def set_starters():
         cl.Starter(
             label="adverse effects of pseudoephedrine for nasal congestion",
             message="What are the adverse effects of pseudoephedrine for nasal congestion?",
-        )
+        ),
     ]
