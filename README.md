@@ -5,7 +5,7 @@
 [![Python](https://img.shields.io/badge/Python-3.13+-3776AB?style=for-the-badge&logo=python&logoColor=white)](https://python.org)
 [![LangChain](https://img.shields.io/badge/LangChain-1C3C3C?style=for-the-badge&logo=chainlink&logoColor=white)](https://langchain.com)
 [![LangGraph](https://img.shields.io/badge/LangGraph-4B8BBE?style=for-the-badge&logo=graphql&logoColor=white)](https://langchain-ai.github.io/langgraph/)
-[![Streamlit](https://img.shields.io/badge/Streamlit-FF4B4B?style=for-the-badge&logo=streamlit&logoColor=white)](https://streamlit.io)
+[![Chainlit](https://img.shields.io/badge/Chainlit-1A73E8?style=for-the-badge&logo=chainlink&logoColor=white)](https://www.chainlit.io)
 
 *An AI-powered assistant for clinical trials research and exploration* 🔬
 
@@ -22,7 +22,7 @@
 - 🤖 **AI-Powered Conversations** - Answers questions related to clinical research based on clinicaltrials.gov data
 - 🔍 **Smart Search & Retrieval** - Advanced search capabilities for clinical trial data
 - 📊 **Results Reranking** - Intelligent ranking of search results for better relevance
-- 🌐 **Web Interface** - Clean and intuitive Streamlit-based UI
+- 🌐 **Web Interface** - Clean and intuitive Chainlit-based UI
 - ⚡ **Fast & Efficient** - Built with modern Python technologies
 
 ## 🚀 Quick Start
@@ -65,7 +65,7 @@ The application will be available at `http://localhost:8501` 🌐
 
 | Command | Description |
 |---------|-------------|
-| `make run` | 🚀 Start the Streamlit application |
+| `make run` | 🚀 Start the Chainlit application |
 | `make test` | 🧪 Run all tests |
 | `make lint` | 🔧 Lint and format code with Ruff |
 | `make dry_lint` | 🔍 Check linting without making changes |
@@ -96,14 +96,14 @@ poetry run pytest --cov=clinical_trials_assistant
 
 ```
 clinical_trials_assistant/
-├── 🧠 main.py           # Streamlit application entry point
+├── 🧠 main.py           # Chainlit application entry point
 ├── 🔗 nodes.py          # LangGraph nodes and state management
 ├── 🔌 providers.py      # Data providers and integrations
 ```
 
 ### Core Components
 
-- **🧠 Main Application**: Streamlit-based web interface
+- **🧠 Main Application**: Chainlit-based web interface
 - **🔗 Graph Nodes**: LangGraph-powered conversation flow
 - **🔌 Providers**: External data source integrations
 - **🛠️ Tools**: Utility functions and helpers
@@ -133,6 +133,6 @@ This project is licensed under the MIT License - see the [LICENSE](LICENSE) file
 
 ## 🙏 Acknowledgments
 
-- Built with ❤️ using [LangChain](https://langchain.com) and [Streamlit](https://streamlit.io)
+- Built with ❤️ using [LangChain](https://langchain.com) and [Chainlit](https://chainlit.io)
 - Powered by [LangGraph](https://langchain-ai.github.io/langgraph/) for conversation flow
 - Code quality ensured by [Ruff](https://docs.astral.sh/ruff/)
