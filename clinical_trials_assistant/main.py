@@ -6,6 +6,7 @@ from chainlit.types import ThreadDict
 from langchain_core.messages import AIMessage, HumanMessage
 
 from clinical_trials_assistant.nodes import State, graph
+from clinical_trials_assistant.providers import ClinicalTrial
 
 
 @cl.password_auth_callback
@@ -63,17 +64,44 @@ async def on_message(message: cl.Message):
                     "rerank": "rerank_results",
                     "answer": "prepare_answer",
                 }.get(name_key)
-                retrieved_state = data.get("answer", {})
+                retrieved_state = data.get(name_key, {})
+
+                if name_key == "rerank":
+                    # Create sidebar with top retrieved trials
+                    top_trials_ids: list[str] = retrieved_state.get(
+                        "top_reranked_results_ids", []
+                    )
+                    top_trials: list[ClinicalTrial] = [
+                        trial
+                        for trial in retrieved_state.get("retrieved_trials", [])
+                        if trial.nct_id in top_trials_ids
+                    ]
+
+                    await cl.ElementSidebar.set_elements(
+                        [
+                            cl.Text(
+                                content=f"{t.nct_id}: {t.official_title}", name=t.nct_id
+                            )
+                            for t in top_trials
+                        ]
+                    )
+                    await cl.ElementSidebar.set_title("Retrieved Trials")
 
                 with cl.Step(name=name_formatted):
                     pass
             else:
                 token, metadata = data
+
+                # Workaround to skip the last token which is a repetition of entire message
+                if len(token.content) > 100:
+                    continue
+
                 if metadata["langgraph_node"] == "answer":
                     await msg.stream_token(token.content)
 
     messages.append(AIMessage(msg.content))
 
+    # Update session
     cl.user_session.set("messages", messages)
     cl.user_session.set("retrieved_trials", retrieved_state.get("retrieved_trials"))
     cl.user_session.set(
