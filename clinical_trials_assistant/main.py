@@ -1,12 +1,37 @@
+import os
+
 import chainlit as cl
+from chainlit.data.sql_alchemy import SQLAlchemyDataLayer
+from chainlit.types import ThreadDict
 from langchain_core.messages import AIMessage, HumanMessage
 
 from clinical_trials_assistant.nodes import State, graph
 
 
+@cl.password_auth_callback
+def auth_callback(username: str, password: str):
+    # Fetch the user matching username from your database
+    # and compare the hashed password with the value stored in the database
+    if (username, password) == ("admin", "admin"):
+        return cl.User(
+            identifier="admin", metadata={"role": "admin", "provider": "credentials"}
+        )
+    else:
+        return None
+
+
+@cl.data_layer
+def get_data_layer():
+    return SQLAlchemyDataLayer(
+        conninfo=os.getenv("DATABASE_URL").replace(
+            "postgresql://", "postgresql+asyncpg://"
+        )
+    )
+
+
 @cl.on_chat_start
 async def on_chat_start():
-    cl.user_session.set("messages", [])
+    pass
 
 
 @cl.on_message
@@ -55,9 +80,6 @@ async def on_message(message: cl.Message):
     )
 
 
-import chainlit as cl
-
-
 @cl.set_starters
 async def set_starters():
     return [
@@ -70,3 +92,18 @@ async def set_starters():
             message="What are the adverse effects of pseudoephedrine for nasal congestion?",
         ),
     ]
+
+
+@cl.on_chat_resume
+async def on_chat_resume(thread: ThreadDict):
+    cl.user_session.set("messages", [])
+    messages = []
+    persisted_messages = [m for m in thread["steps"]]
+
+    for message in persisted_messages:
+        if message["type"] == "user_message":
+            messages.append(HumanMessage(message["output"]))
+        elif message["type"] == "assistant_message":
+            messages.append(AIMessage(message["output"]))
+
+    cl.user_session.set("messages", messages)
