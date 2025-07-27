@@ -31,6 +31,7 @@
 
 - Python 3.13 or higher
 - Poetry (for dependency management)
+- Docker (for a local PostgreSQL instance)
 
 ### Installation
 
@@ -52,12 +53,23 @@
    # Edit .env with your configuration
    ```
 
-4. **Run the application**
+4. **Run the application DB**
+   ```bash
+   make run_db
+   make migrate_db # If running for the first time
+   ```
+
+5. **Run the application**
    ```bash
    make run
    ```
 
-The application will be available at `http://localhost:8501` 🌐
+5. **After closing the application, stop the database container**
+   ```bash
+   make stop_db
+   ```
+
+The application will be available at `http://localhost:8000` 🌐
 
 ## 🛠️ Development
 

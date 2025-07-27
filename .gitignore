@@ -202,5 +202,5 @@ __marimo__/
 # Streamlit
 .streamlit/secrets.toml
 
-# Chainlit
-.chainlit/translations
+# Docker volumes
+.pgdata/
