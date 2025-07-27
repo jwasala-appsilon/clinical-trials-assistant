@@ -49,34 +49,36 @@ async def on_message(message: cl.Message):
     )
 
     msg = cl.Message(content="", author="ai")
+    retrieved_state = {}
 
     with cl.Step(name="Clinical Trial Assistant"):
-        async for data in graph.astream(state, stream_mode="updates"):
-            # TODO: think about a better way to handle displaying steps
-            # Currently, the step description appears when it's finished
-            name_key = next(iter(data))
-            name_formatted = {
-                "validate": "validate_request",
-                "retrieve": f"query_clinical_trials_gov",
-                "rerank": "rerank_results",
-                "answer": "prepare_answer",
-            }.get(name_key)
-            with cl.Step(name=name_formatted):
-                if name_key == "answer":
-                    content = data[name_key]["messages"][-1].content
+        async for mode, data in graph.astream(
+            state, stream_mode=["updates", "messages"]
+        ):
+            if mode == "updates":
+                name_key = next(iter(data))
+                name_formatted = {
+                    "validate": "validate_request",
+                    "retrieve": f"query_clinical_trials_gov",
+                    "rerank": "rerank_results",
+                    "answer": "prepare_answer",
+                }.get(name_key)
+                retrieved_state = data.get("answer", {})
 
-    await msg.stream_token(content)
-    await msg.send()
+                with cl.Step(name=name_formatted):
+                    pass
+            else:
+                token, metadata = data
+                if metadata["langgraph_node"] == "answer":
+                    await msg.stream_token(token.content)
 
-    messages.append(AIMessage(content))
+    messages.append(AIMessage(msg.content))
 
     cl.user_session.set("messages", messages)
-    cl.user_session.set(
-        "retrieved_trials", data.get("answer", {}).get("retrieved_trials")
-    )
+    cl.user_session.set("retrieved_trials", retrieved_state.get("retrieved_trials"))
     cl.user_session.set(
         "top_reranked_results_ids",
-        data.get("answer", {}).get("top_reranked_results_ids"),
+        retrieved_state.get("top_reranked_results_ids"),
     )
 
 
