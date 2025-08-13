@@ -13,10 +13,6 @@
 
 ---
 
-<p align="center">
-    <img src="assets/screenshot.png" alt="Clinical Trials Assistant Screenshot" width="800">
-</p>
-
 ## ✨ Features
 
 - 🤖 **AI-Powered Conversations** - Answers questions related to clinical research based on clinicaltrials.gov data
