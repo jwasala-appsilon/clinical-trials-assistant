@@ -6,21 +6,21 @@
     "entrypoint": "clinical_trials_assistant.main"
   },
   "python": {
-    "version": "3.13.5",
+    "version": "3.12.2",
     "package_manager": {
       "name": "pip",
-      "version": "25.1.1",
+      "version": "25.2",
       "package_file": "requirements.txt"
     }
   },
   "environment": {
     "python": {
-      "requires": ">=3.13,<4.0"
+      "requires": "3.12.2"
     }
   },
   "files": {
     "requirements.txt": {
-      "checksum": "95d47ee01b1866cee53ed9286eb9456c"
+      "checksum": "39270cac2851f8a26edb96679159eacb"
     },
     ".chainlit/config.toml": {
       "checksum": "d08855af18477b6169c9fecd27ed8b0c"
@@ -3224,7 +3224,7 @@
       "checksum": "6e43cd8984c77a8a32f648d39c37e2fd"
     },
     "clinical_trials_assistant/main.py": {
-      "checksum": "f7b9696fb402bfbd3678259d3097b628"
+      "checksum": "905564985c90089c540a882c2b192f66"
     },
     "clinical_trials_assistant/nodes.py": {
       "checksum": "c400b77d206e10e4ad8534cdb8d2a21e"
@@ -3233,13 +3233,13 @@
       "checksum": "37e1350e5d79c09c9988482224e9f238"
     },
     "poetry.lock": {
-      "checksum": "f73a29e47d40b94d31628c22a847a06f"
+      "checksum": "339079b0af78768ff00dca000d14b064"
     },
     "public/app.js": {
       "checksum": "2008e88479e8e486ecdff37faa209a6d"
     },
     "pyproject.toml": {
-      "checksum": "9df79962449582a15c1723f547209319"
+      "checksum": "76a6526aa52757f70c371b733f992fde"
     },
     "scripts/ddl.sql": {
       "checksum": "6ccc67ebe0214804f0d37893d8e4b154"
