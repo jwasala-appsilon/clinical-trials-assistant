@@ -20,7 +20,7 @@
   },
   "files": {
     "requirements.txt": {
-      "checksum": "39270cac2851f8a26edb96679159eacb"
+      "checksum": "2487ffcbde9ed3c47de8f46e2594ea69"
     },
     ".chainlit/config.toml": {
       "checksum": "d08855af18477b6169c9fecd27ed8b0c"
