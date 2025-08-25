@@ -204,3 +204,4 @@ __marimo__/
 
 # Docker volumes
 .pgdata/
+*.db
