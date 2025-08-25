@@ -20,7 +20,7 @@
   },
   "files": {
     "requirements.txt": {
-      "checksum": "7073b088657a0dafbec3804e36b1466d"
+      "checksum": "02c6e6748d40e0101f1e3a1ba78ed36b"
     },
     ".chainlit/config.toml": {
       "checksum": "d08855af18477b6169c9fecd27ed8b0c"
@@ -3251,13 +3251,13 @@
       "checksum": "37e1350e5d79c09c9988482224e9f238"
     },
     "poetry.lock": {
-      "checksum": "d47447b1fba2abe199ffd7546358ef21"
+      "checksum": "794c73d6ddc1efe03a7637b86a53665d"
     },
     "public/app.js": {
       "checksum": "2008e88479e8e486ecdff37faa209a6d"
     },
     "pyproject.toml": {
-      "checksum": "2e2d867b4c2894637cc173bd66b3c1a7"
+      "checksum": "dcc76c90892ba3cf948313d01e06d903"
     },
     "scripts/ddl.sql": {
       "checksum": "6ccc67ebe0214804f0d37893d8e4b154"
