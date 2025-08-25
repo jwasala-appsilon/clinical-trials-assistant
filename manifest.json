@@ -20,7 +20,7 @@
   },
   "files": {
     "requirements.txt": {
-      "checksum": "2487ffcbde9ed3c47de8f46e2594ea69"
+      "checksum": "7073b088657a0dafbec3804e36b1466d"
     },
     ".chainlit/config.toml": {
       "checksum": "d08855af18477b6169c9fecd27ed8b0c"
@@ -65,13 +65,13 @@
       "checksum": "6efe105f5f757447afba8fbbf3f90ff7"
     },
     ".env": {
-      "checksum": "d4dd286e30496d7e6d25bf4b6d827458"
+      "checksum": "3716b34dea874780c2bcbd847f7459f3"
     },
     ".env.example": {
       "checksum": "59ee94dc0b9521e90f6abbfabf67e1e2"
     },
     ".gitignore": {
-      "checksum": "0a6e0b4972a9f6e41f8869422128934d"
+      "checksum": "bdbbcc261e0f226064fdcb65f216953d"
     },
     ".pgdata/PG_VERSION": {
       "checksum": "4d095eeac8ed659b1ce69dcef32ed0dc"
@@ -3202,29 +3202,47 @@
     "chainlit.md": {
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
     },
+    "clinical_trials_assistant.db": {
+      "checksum": "e60c2c9f6fb373861778b61bbc9c181a"
+    },
     "clinical_trials_assistant/__init__.py": {
       "checksum": "d41d8cd98f00b204e9800998ecf8427e"
+    },
+    "clinical_trials_assistant/__pycache__/__init__.cpython-312.pyc": {
+      "checksum": "5ccdb3c19004a17d700a02605fa81221"
     },
     "clinical_trials_assistant/__pycache__/__init__.cpython-313.pyc": {
       "checksum": "72e7b01ff3cee74e872763de38e6a22e"
     },
+    "clinical_trials_assistant/__pycache__/chainlit.cpython-312.pyc": {
+      "checksum": "91cc8ceb9dbeade6a8270867b1dcd5ff"
+    },
     "clinical_trials_assistant/__pycache__/chainlit.cpython-313.pyc": {
       "checksum": "4cdd5e4a6e8eec56051dfbb4b806c10f"
+    },
+    "clinical_trials_assistant/__pycache__/main.cpython-312.pyc": {
+      "checksum": "ded0db4e4fe63959d38cb39692ef9012"
     },
     "clinical_trials_assistant/__pycache__/main.cpython-313.pyc": {
       "checksum": "9c50af994bc0dd4fb7f397ff994ad1ba"
     },
+    "clinical_trials_assistant/__pycache__/nodes.cpython-312.pyc": {
+      "checksum": "698d87a3527a32e9254dbb8023eef186"
+    },
     "clinical_trials_assistant/__pycache__/nodes.cpython-313.pyc": {
       "checksum": "e6c9528810dba415c3fae4821bf07713"
+    },
+    "clinical_trials_assistant/__pycache__/providers.cpython-312.pyc": {
+      "checksum": "9f462857b96e62d6ec3235e55f2a1b31"
     },
     "clinical_trials_assistant/__pycache__/providers.cpython-313.pyc": {
       "checksum": "ffca37690800a4a01e5dd0ddc64521da"
     },
     "clinical_trials_assistant/chainlit.py": {
-      "checksum": "6e43cd8984c77a8a32f648d39c37e2fd"
+      "checksum": "8fe22795e2c2b0ef0b22288249d48d5d"
     },
     "clinical_trials_assistant/main.py": {
-      "checksum": "905564985c90089c540a882c2b192f66"
+      "checksum": "786534df8cd8a5d52fe9b40ae5ee24c8"
     },
     "clinical_trials_assistant/nodes.py": {
       "checksum": "c400b77d206e10e4ad8534cdb8d2a21e"
@@ -3233,13 +3251,13 @@
       "checksum": "37e1350e5d79c09c9988482224e9f238"
     },
     "poetry.lock": {
-      "checksum": "339079b0af78768ff00dca000d14b064"
+      "checksum": "d47447b1fba2abe199ffd7546358ef21"
     },
     "public/app.js": {
       "checksum": "2008e88479e8e486ecdff37faa209a6d"
     },
     "pyproject.toml": {
-      "checksum": "76a6526aa52757f70c371b733f992fde"
+      "checksum": "2e2d867b4c2894637cc173bd66b3c1a7"
     },
     "scripts/ddl.sql": {
       "checksum": "6ccc67ebe0214804f0d37893d8e4b154"
