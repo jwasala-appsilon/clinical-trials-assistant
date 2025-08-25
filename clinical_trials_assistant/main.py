@@ -9,9 +9,8 @@ root_path = f"/content/{guid}" if guid else ""
 
 app = FastAPI(root_path=root_path)
 
-app.get("/debug-headers")
 
-
+@app.get("/debug-headers")
 async def debug_headers(request: Request):
     return dict(request.headers)
 
