@@ -18,6 +18,7 @@ dependencies = [
     "aiohttp (>=3.12.14,<4.0.0)",
     "greenlet (>=3.2.3,<4.0.0)",
     "rsconnect (>=1.27.1,<2.0.0)",
+    "aiosqlite (>=0.21.0,<0.22.0)",
 ]
 
 

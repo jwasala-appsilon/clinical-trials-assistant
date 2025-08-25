@@ -1,14 +1,15 @@
 import os
+import re
 
 import chainlit as cl
 from chainlit.data.sql_alchemy import SQLAlchemyDataLayer
 from chainlit.types import ThreadDict
-from chainlit.utils import mount_chainlit
-from fastapi import FastAPI, Request
 from langchain_core.messages import AIMessage, HumanMessage
 
 from clinical_trials_assistant.nodes import State, graph
 from clinical_trials_assistant.providers import ClinicalTrial
+import sqlalchemy
+from sqlalchemy import text
 
 
 @cl.password_auth_callback
@@ -25,11 +26,36 @@ def auth_callback(username: str, password: str):
 
 @cl.data_layer
 def get_data_layer():
-    return SQLAlchemyDataLayer(
-        conninfo=os.getenv("DATABASE_URL").replace(
-            "postgresql://", "postgresql+asyncpg://"
-        )
+    conninfo = os.getenv("DATABASE_URL")
+    conninfo_async = conninfo.replace("postgresql://", "postgresql+asyncpg://").replace(
+        "sqlite:///", "sqlite+aiosqlite:///"
     )
+
+    # Check if migrations are applied
+    # For demonstration, assume a table called 'alembic_version' exists after migration
+    sync_conninfo = conninfo.replace("postgresql+asyncpg://", "postgresql://").replace(
+        "sqlite+aiosqlite:///", "sqlite:///"
+    )
+    engine = sqlalchemy.create_engine(sync_conninfo)
+    with engine.connect() as conn:
+        result = conn.execute(
+            text(
+                "SELECT name FROM sqlite_master WHERE type='table' AND name='alembic_version'"
+            )
+        )
+        migration_applied = result.fetchone() is not None
+
+        if not migration_applied:
+            # Run DDL script
+            ddl_path = os.path.join(os.path.dirname(__file__), "../scripts/ddl.sql")
+            with open(ddl_path, "r") as ddl_file:
+                statements = re.split(r";\s*$", ddl_file.read(), flags=re.MULTILINE)
+                for statement in statements:
+                    if statement:
+                        conn.execute(text(statement))
+                        conn.commit()
+
+    return SQLAlchemyDataLayer(conninfo=conninfo_async)
 
 
 @cl.on_chat_start

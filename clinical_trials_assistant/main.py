@@ -20,4 +20,4 @@ def read_main():
     return {"message": "Hello World from main app"}
 
 
-mount_chainlit(app=app, target="clinical_trials_assistant/chainlit.py", path=f"/")
+mount_chainlit(app=app, target="clinical_trials_assistant/chainlit.py", path="/")
