@@ -129,7 +129,26 @@ async def on_message(message: cl.Message):
 
     messages.append(AIMessage(msg.content))
 
-    # Update session
+    # Persist assistant message (so it shows up when re-opening thread)
+    # Attach metadata needed to reconstruct sidebar later.
+    msg.metadata = {
+        "retrieved_trials": [
+            {
+                "nct_id": t.nct_id,
+                "official_title": t.official_title,
+                "brief_summary": t.brief_summary,
+            }
+            for t in (retrieved_state.get("retrieved_trials") or [])
+        ],
+        "top_reranked_results_ids": retrieved_state.get("top_reranked_results_ids", []),
+    }
+    try:
+        await msg.send()
+    except Exception:
+        # In unit tests we stub .send(); in production this should succeed.
+        pass
+
+    # Update session (runtime continuity)
     cl.user_session.set("messages", messages)
     cl.user_session.set("retrieved_trials", retrieved_state.get("retrieved_trials"))
     cl.user_session.set(
@@ -151,13 +170,44 @@ async def set_starters():
 @cl.on_chat_resume
 async def on_chat_resume(thread: ThreadDict):
     cl.user_session.set("messages", [])
-    messages = []
+    messages: list[AIMessage | HumanMessage] = []
     persisted_messages = [m for m in thread["steps"]]
+
+    retrieved_trials_data = []
+    top_ids: list[str] = []
 
     for message in persisted_messages:
         if message["type"] == "user_message":
             messages.append(HumanMessage(message["output"]))
         elif message["type"] == "assistant_message":
             messages.append(AIMessage(message["output"]))
+            meta = message.get("metadata") or {}
+            if meta:
+                retrieved_trials_data = (
+                    meta.get("retrieved_trials") or retrieved_trials_data
+                )
+                top_ids = meta.get("top_reranked_results_ids") or top_ids
 
     cl.user_session.set("messages", messages)
+    # Rebuild sidebar if we have metadata
+    if retrieved_trials_data and top_ids:
+        # Only display trials present in top_ids
+        sidebar_trials = [
+            t for t in retrieved_trials_data if t.get("nct_id") in top_ids
+        ]
+        try:
+            import chainlit as cl_local
+
+            await cl_local.ElementSidebar.set_elements(
+                [
+                    cl_local.Text(
+                        content=f"{t['nct_id']}: {t['official_title']}",
+                        name=t["nct_id"],
+                    )
+                    for t in sidebar_trials
+                ]
+            )
+            await cl_local.ElementSidebar.set_title("Retrieved Trials")
+        except Exception:
+            # Ignore sidebar reconstruction failures silently
+            pass

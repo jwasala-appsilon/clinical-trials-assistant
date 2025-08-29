@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from logging import getLogger
-from typing import Any
+from typing import Any, Union
 
 import requests
 
@@ -19,19 +19,26 @@ class ClinicalTrial:
     results_section: dict[str, Any]
 
 
-def fetch_clinical_trials(query: dict) -> list[ClinicalTrial]:
+def fetch_clinical_trials(query: Union[dict, str]) -> list[ClinicalTrial]:
     """Fetch clinical trials that are both completed and have results.
 
     Args:
-        query (dict): Dict where keys are valid ClinicalTrials.gov query parameters
-            (e.g., 'query.term', 'query.cond', 'query.locn', etc.)
-            and values are Essie expressions for that search area.
+        query (dict | str): Either
+            - a dict where keys are valid ClinicalTrials.gov query parameters
+              (e.g., 'query.term', 'query.cond', 'query.locn', etc.) and values are
+              Essie expressions for that search area, OR
+            - a plain string which will be treated as the value for 'query.term'.
 
     Returns:
         list[ClinicalTrial]: A list of clinical trial descriptions that match the query.
     """
-    if not isinstance(query, dict):
-        raise TypeError("`query` must be a dict of query parameters.")
+    if isinstance(query, str):
+        # Backwards compatibility: accept raw string as a basic term query.
+        query = {"query.term": query}
+    elif not isinstance(query, dict):
+        raise TypeError(
+            "`query` must be either a dict of query parameters or a string."
+        )
 
     # Allowed query.* keys based on API search areas
     allowed_keys = {
