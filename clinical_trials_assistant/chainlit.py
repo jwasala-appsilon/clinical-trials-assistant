@@ -88,7 +88,7 @@ async def on_message(message: cl.Message):
                 name_key = next(iter(data))
                 name_formatted = {
                     "validate": "validate_request",
-                    "retrieve": f"query_clinical_trials_gov",
+                    "retrieve": "query_clinical_trials_gov",
                     "rerank": "rerank_results",
                     "answer": "prepare_answer",
                 }.get(name_key)
