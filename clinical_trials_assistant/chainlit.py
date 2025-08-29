@@ -145,10 +145,6 @@ async def set_starters():
             label="ibuprofen ± caffeine for back pain treatment",
             message="What is the effect of ibuprofen ± caffeine for back pain treatment?",
         ),
-        cl.Starter(
-            label="adverse effects of pseudoephedrine for nasal congestion",
-            message="What are the adverse effects of pseudoephedrine for nasal congestion?",
-        ),
     ]
 
 
