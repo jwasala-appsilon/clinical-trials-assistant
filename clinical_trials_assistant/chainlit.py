@@ -1,3 +1,4 @@
+import json
 import os
 import re
 
@@ -178,6 +179,17 @@ async def on_chat_resume(thread: ThreadDict):
         elif message["type"] == "assistant_message":
             messages.append(AIMessage(message["output"]))
             meta = message.get("metadata") or {}
+            # Metadata may be stored as dict, JSON string, or other. Normalize to dict.
+            if isinstance(meta, str):
+                try:
+                    loaded = json.loads(meta)
+                    meta = loaded if isinstance(loaded, dict) else {}
+                except Exception:
+                    meta = {}
+            elif not isinstance(meta, dict):
+                # Unexpected structure; ignore to avoid attribute errors.
+                meta = {}
+
             if meta:
                 retrieved_trials_data = (
                     meta.get("retrieved_trials") or retrieved_trials_data

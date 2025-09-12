@@ -111,7 +111,7 @@
         "settings": {
             "title": "Settings panel"
         },
-        "watermark": "Built with"
+        "watermark": "Built at Appsilon using Python, LangChain, and Chainlit"
     },
     "threadHistory": {
         "sidebar": {
